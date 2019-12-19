@@ -1,9 +1,20 @@
+const managerOne = require("./templates/managerOne.js");
+const mainOne = require("./templates/mainOne.js");
+const engineerOne = require("./templates/engineerOne.js");
+const internOne = require("./templates/internOne.js");
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const inquirer = require('inquirer');
 const fs = require('fs')
-const team = []
+let managerCard = [];
+let internCard = [];
+let engineerCard = [];
+
+let manager
+let intern
+let engineer
+
 inquirer
 .prompt([
     {type: 'input',
@@ -27,12 +38,14 @@ inquirer
   ])
   .then(answers => {
     // Use user feedback for... whatever!!
-    console.log(answers)
-    const manager = new Manager(answers.name, answers.id, answers.email, answers.office)
+    // console.log(answers)
+    let newManager = new Manager(answers.name, answers.id, answers.email, answers.office)
     // 
-    team.push(manager)
-    console.log(team)
+    
+    // console.log('this is the manager card ', managerCard)
     createTeam()
+
+    return managerCard.push(newManager)
   });
 
   function createTeam(){
@@ -49,7 +62,7 @@ inquirer
         /* Pass your questions in here */
       ])
       .then(answers => {
-          console.log(answers)
+        //   console.log(answers)
           //switch  create eng or create inte or end
         if(answers.choice === 'Engineer'){
             createEng();
@@ -85,10 +98,10 @@ inquirer
     ])
     .then(answers => {
         // Use user feedback for... whatever!!
-        console.log(answers)
-        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
-        team.push(engineer)
-        console.log(team)
+        // console.log(answers)
+        let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+        engineerCard.push(engineer)
+        // console.log(engineerCard)
         createTeam()
     })
     }
@@ -118,11 +131,11 @@ inquirer
     ])
     .then(answers => {
         // Use user feedback for... whatever!!
-        console.log(answers)
-        const intern = new Intern(answers.name, answers.id, answers.email, answers.school);
+        // console.log(answers)
+        let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         
-        team.push(intern)
-        console.log(team)
+        internCard.push(intern)
+        // console.log(internCard)
         createTeam()
     });
 
@@ -130,7 +143,19 @@ inquirer
     
     function createHTML(){
     // when you need to read the team arrayy an build the html
-     
 
+        const team = managerCard[0] + internCard[0] + engineerCard[0]
+        
+        // console.log('--------------This is the manager card ',managerCard)
+        let html = managerOne(team) 
+        console.log(typeof html);
+        // console.log(team.name)
+        // let teamOne = mainOne() + managerOne() + engineerOne() + internOne ()
+        // htmlCreated()
+        fs.writeFile('render.html', html, (err) =>{
+            if (err){
+                throw err;
+            }
+        })
     }
-
+    
