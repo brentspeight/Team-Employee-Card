@@ -38,14 +38,14 @@ inquirer
   ])
   .then(answers => {
     // Use user feedback for... whatever!!
-    console.log(answers)
-    let manager = new Manager(answers.name, answers.id, answers.email, answers.office)
+    // console.log(answers)
+    let newManager = new Manager(answers.name, answers.id, answers.email, answers.office)
     // 
     
-    console.log('this is the manager card ', managerCard)
+    // console.log('this is the manager card ', managerCard)
     createTeam()
 
-    return managerCard.push(manager)
+    return managerCard.push(newManager)
   });
 
   function createTeam(){
@@ -62,7 +62,7 @@ inquirer
         /* Pass your questions in here */
       ])
       .then(answers => {
-          console.log(answers)
+        //   console.log(answers)
           //switch  create eng or create inte or end
         if(answers.choice === 'Engineer'){
             createEng();
@@ -98,10 +98,10 @@ inquirer
     ])
     .then(answers => {
         // Use user feedback for... whatever!!
-        console.log(answers)
+        // console.log(answers)
         let engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
         engineerCard.push(engineer)
-        console.log(engineerCard)
+        // console.log(engineerCard)
         createTeam()
     })
     }
@@ -131,11 +131,11 @@ inquirer
     ])
     .then(answers => {
         // Use user feedback for... whatever!!
-        console.log(answers)
+        // console.log(answers)
         let intern = new Intern(answers.name, answers.id, answers.email, answers.school);
         
         internCard.push(intern)
-        console.log(internCard)
+        // console.log(internCard)
         createTeam()
     });
 
@@ -144,10 +144,12 @@ inquirer
     function createHTML(){
     // when you need to read the team arrayy an build the html
 
-        const team = managerCard[0]
-        console.log('--------------This is the manager card ',managerCard)
-        let html = managerOne({team})
-        console.log(team)
+        const team = managerCard[0] + internCard[0] + engineerCard[0]
+        
+        // console.log('--------------This is the manager card ',managerCard)
+        let html = managerOne(team) 
+        console.log(typeof html);
+        // console.log(team.name)
         // let teamOne = mainOne() + managerOne() + engineerOne() + internOne ()
         // htmlCreated()
         fs.writeFile('render.html', html, (err) =>{
