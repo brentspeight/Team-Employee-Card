@@ -6,3 +6,5 @@ To start off the user will be prompt to make an engineering team.
 The engineering team must consist at least one manager, one engieer, and one intern. However you can add as many employees (interns and engineers) to the team. 
 
 Once done, the user must hit the command prompt, and it will display html team cards.
+
+https://brentspeight.github.io/Team-Employee-Card/
